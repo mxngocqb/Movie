@@ -9,12 +9,12 @@ import (
 	"net/http"
 )
 
-const port = 8080
+const port = 8100
 
 type application struct {
-	DSN string
+	DSN    string
 	Domain string
-	DB repository.DatabaseRepo
+	DB     repository.DatabaseRepo
 }
 
 func main() {
@@ -34,7 +34,7 @@ func main() {
 
 	app.Domain = "example.com"
 	log.Println("Starting application on port: ", port)
-	
+
 	// start web server
 	err = http.ListenAndServe(fmt.Sprintf(":%d", port), app.routes())
 	if err != nil {

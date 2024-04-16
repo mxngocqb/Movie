@@ -12,7 +12,7 @@ const Movies = () => {
             headers: headers,
         }
 
-        fetch(`http://192.168.88.130:8080/movies`, requestOptins)
+        fetch(`http://localhost:8100/movies`, requestOptins)
             .then((respone) => respone.json())
             .then((data) => {
                 setMovies(data)
