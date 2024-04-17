@@ -48,7 +48,7 @@ func main() {
 		Audience: app.JWTAudience,
 		Secret: app.JWTSecret,
 		TokenExpiry: time.Minute*15,
-		RefeshExpiry: time.Hour*24,
+		RefreshExpiry: time.Hour*24,
 		CookiePath: "/",
 		CookieName: "__Host-refresh_token",
 		CookieDomain: app.CookieDomain,

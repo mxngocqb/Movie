@@ -12,17 +12,38 @@ const Login = () => {
     const handleSubmit = (evnet) => {
         evnet.preventDefault();
         console.log("email/pass", email, password);
-        if (email == "admin@example.com") {
-            setJwtToken("abc");
-            setAlertClassname("d-none");
-            setAlertMessage("")
-            navigate("/")
-        } else{
-            
-            setAlertClassname("alert-danger");
-            setAlertMessage("Invalid credentials")
+        // build the requet payload
+        let payload = {
+            email: email,
+            password: password,
         }
 
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(payload)
+        }
+
+        fetch(`/authenticate`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.error) {
+                    setAlertClassname("alert-danger")
+                    setAlertMessage(data.message)
+                } else {
+                    setJwtToken(data.access_token)
+                    setAlertClassname("d-none")
+                    setAlertMessage("")
+                    navigate("/")
+                }
+            })
+            .catch(error => {
+                setAlertClassname("alert-danger")
+                setAlertMessage(error)
+            })
     }
 
     return (
