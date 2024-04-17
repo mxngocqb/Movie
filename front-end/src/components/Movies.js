@@ -12,7 +12,7 @@ const Movies = () => {
             headers: headers,
         }
 
-        fetch(`http://localhost:8100/movies`, requestOptins)
+        fetch(`http://192.168.88.130:8080/movies`, requestOptins)
             .then((respone) => respone.json())
             .then((data) => {
                 setMovies(data)
@@ -43,7 +43,7 @@ const Movies = () => {
                                 </Link>
                             </td>
                             <td>{m.release_date}</td>
-                            <td>{m.mpaa_rating}</td>
+                            <td>{m.mppa_rating}</td>
                         </tr>
                     ))}
                 </tbody>
