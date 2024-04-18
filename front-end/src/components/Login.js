@@ -23,14 +23,14 @@ const Login = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: 'include',
+            credentials: "include",
             body: JSON.stringify(payload)
         }
 
-        fetch(`/authenticate`, requestOptions)
+        fetch(`http://localhost:8080/authenticate`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-                if (data.error) {
+                if (data && data.error) {
                     setAlertClassname("alert-danger")
                     setAlertMessage(data.message)
                 } else {
