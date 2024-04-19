@@ -5,7 +5,7 @@ Description of your project goes here.
 
 - Docker
 - Docker Compose
-- Node.js
+- ReactJS
 - Go
 
 ## Getting Started
