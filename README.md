@@ -17,8 +17,9 @@ To get a local copy up and running, follow these simple steps.
 1. Clone the repo
    ```sh
    git clone https://github.com/mxngocqb/Movie.git
-2. Run Back-eng
+2. Run Back-end
    ```sh
    go mod init backend
    go mod tidy
    go run ./cmd/api
+3. Run frontend
