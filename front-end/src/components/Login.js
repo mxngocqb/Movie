@@ -1,18 +1,22 @@
 import { useState } from "react";
-import Input from "./form/Input.js"
 import { useNavigate, useOutletContext } from "react-router-dom";
+import Input from "./form/Input";
+
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const { setJwtToken } = useOutletContext();
-    const { setAlertClassname } = useOutletContext();
+    const { setAlertClassName } = useOutletContext();
     const { setAlertMessage } = useOutletContext();
+    const { toggleRefresh } = useOutletContext();
+
     const navigate = useNavigate();
-    const handleSubmit = (evnet) => {
-        evnet.preventDefault();
-        console.log("email/pass", email, password);
-        // build the requet payload
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        
+        // build the request payload
         let payload = {
             email: email,
             password: password,
@@ -23,30 +27,31 @@ const Login = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(payload),
-            credentials: 'include'
         }
 
         fetch(`https://192.168.88.130:8080/authenticate`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-                if (data && data.error) {
-                    setAlertClassname("alert-danger")
-                    setAlertMessage(data.message)
+                if (data.error) {
+                    setAlertClassName("alert-danger");
+                    setAlertMessage(data.message);
                 } else {
-                    setJwtToken(data.access_token)
-                    setAlertClassname("d-none")
-                    setAlertMessage("")
-                    navigate("/")
+                    setJwtToken(data.access_token);
+                    setAlertClassName("d-none");
+                    setAlertMessage("");
+                    toggleRefresh(true);
+                    navigate("/");
                 }
             })
             .catch(error => {
-                setAlertClassname("alert-danger")
-                setAlertMessage(error)
+                setAlertClassName("alert-danger");
+                setAlertMessage(error);
             })
     }
 
-    return (
+    return(
         <div className="col-md-6 offset-md-3">
             <h2>Login</h2>
             <hr />
@@ -69,11 +74,16 @@ const Login = () => {
                     autoComplete="password-new"
                     onChange={(event) => setPassword(event.target.value)}
                 />
-                <input
+
+                <hr />
+
+                <input 
                     type="submit"
                     className="btn btn-primary"
                     value="Login"
                 />
+
+
             </form>
         </div>
     )
