@@ -23,8 +23,8 @@ const Login = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: "include",
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
+            credentials: 'include'
         }
 
         fetch(`http://localhost:8080/authenticate`, requestOptions)

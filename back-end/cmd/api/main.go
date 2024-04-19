@@ -4,7 +4,6 @@ import (
 	"backend/internal/repository"
 	"backend/internal/repository/dbrepo"
 	"flag"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -18,7 +17,7 @@ type application struct {
 	DB           repository.DatabaseRepo
 	auth         Auth
 	JWTSecret    string
-	JWTIssuer   string
+	JWTIssuer    string
 	JWTAudience  string
 	CookieDomain string
 }
@@ -44,20 +43,23 @@ func main() {
 	defer app.DB.Connection().Close()
 
 	app.auth = Auth{
-		Issuer: app.JWTIssuer,
-		Audience: app.JWTAudience,
-		Secret: app.JWTSecret,
-		TokenExpiry: time.Minute * 15,
+		Issuer:        app.JWTIssuer,
+		Audience:      app.JWTAudience,
+		Secret:        app.JWTSecret,
+		TokenExpiry:   time.Minute * 15,
 		RefreshExpiry: time.Hour * 24,
-		CookiePath: "/",
-		CookieName: "__Host-refresh_token",
-		CookieDomain: app.CookieDomain,
+		CookiePath:    "/",
+		CookieName:    "__Host-refresh_token",
+		CookieDomain:  app.CookieDomain,
 	}
 
 	log.Println("Starting application on port: ", port)
 
 	// start web server
-	err = http.ListenAndServe(fmt.Sprintf(":%d", port), app.routes())
+	// err = http.ListenAndServe(fmt.Sprintf(":%d", port), app.routes())
+	certFile := "server.crt"
+    keyFile := "server.key"
+	err = http.ListenAndServeTLS(":8080", certFile, keyFile, app.routes())
 	if err != nil {
 		log.Fatal(err)
 	}

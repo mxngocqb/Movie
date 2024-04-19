@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"log"
 	"net/http"
 	"strconv"
 
@@ -16,23 +15,23 @@ func (app *application) Home(w http.ResponseWriter, r *http.Request) {
 		Version string `json:"version"`
 	}{
 		Status:  "active",
-		Message: "Go Movies up and runnung",
+		Message: "Go Movies up and running",
 		Version: "1.0.0",
 	}
 
 	_ = app.writeJSON(w, http.StatusOK, payload)
-
 }
 
-func (app *application) AllMovie(w http.ResponseWriter, r *http.Request) {
+func (app *application) AllMovies(w http.ResponseWriter, r *http.Request) {
 	movies, err := app.DB.AllMovies()
 	if err != nil {
 		app.errorJSON(w, err)
-		log.Fatal(err)
+		return
 	}
 
 	_ = app.writeJSON(w, http.StatusOK, movies)
 }
+
 func (app *application) authenticate(w http.ResponseWriter, r *http.Request) {
 	// read json payload
 	var requestPayload struct {
@@ -109,9 +108,9 @@ func (app *application) refreshToken(w http.ResponseWriter, r *http.Request) {
 			}
 
 			u := jwtUser{
-				ID:        user.ID,
+				ID: user.ID,
 				FirstName: user.FirstName,
-				LastName:  user.LastName,
+				LastName: user.LastName,
 			}
 
 			tokenPairs, err := app.auth.GenerateTokenPair(&u)
@@ -126,4 +125,10 @@ func (app *application) refreshToken(w http.ResponseWriter, r *http.Request) {
 
 		}
 	}
+}
+
+func (app *application) logout(w http.ResponseWriter, r *http.Request) {
+	http.SetCookie(w, app.auth.GetExpiredRefreshCookie())
+	w.WriteHeader(http.StatusAccepted)
+	
 }
