@@ -17,7 +17,7 @@ function App() {
       credentials: "include",
     }
 
-    fetch(`http://localhost:8080/logout`, requestOptions)
+    fetch(`https://192.168.88.130:8080/logout`, requestOptions)
       .catch(error => {
         console.log("Error logging out");
       })
@@ -33,7 +33,7 @@ function App() {
         method: "GET",
         credentials: "include",
       }
-      fetch(`http://localhost:8080/refresh`, requestOptions)
+      fetch(`https://192.168.88.130:8080/refresh`, requestOptions)
         .then((response) => response.json())
         .then((data) => {
           if (data.access_token) {

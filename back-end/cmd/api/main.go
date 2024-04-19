@@ -30,7 +30,7 @@ func main() {
 	flag.StringVar(&app.JWTSecret, "jwt-secret", "verysecret", "signing secret")
 	flag.StringVar(&app.JWTIssuer, "jwt-issuer", "example.com", "signing issuer")
 	flag.StringVar(&app.JWTAudience, "jwt-audience", "example.com", "signing audience")
-	flag.StringVar(&app.CookieDomain, "cookie-domain", "localhost", "cookie domain")
+	flag.StringVar(&app.CookieDomain, "cookie-domain", "192.168.88.130", "cookie domain")
 	flag.StringVar(&app.Domain, "domain", "example.com", "domain")
 	flag.Parse()
 	// connect to the database
@@ -49,7 +49,7 @@ func main() {
 		TokenExpiry:   time.Minute * 15,
 		RefreshExpiry: time.Hour * 24,
 		CookiePath:    "/",
-		CookieName:    "__Host-refresh_token",
+		CookieName:    "refresh_token",
 		CookieDomain:  app.CookieDomain,
 	}
 
@@ -57,8 +57,8 @@ func main() {
 
 	// start web server
 	// err = http.ListenAndServe(fmt.Sprintf(":%d", port), app.routes())
-	certFile := "server.crt"
-    keyFile := "server.key"
+	certFile := "./server.crt"
+    keyFile := "./server.key"
 	err = http.ListenAndServeTLS(":8080", certFile, keyFile, app.routes())
 	if err != nil {
 		log.Fatal(err)
