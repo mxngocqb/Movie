@@ -3,6 +3,7 @@ module backend
 go 1.22.2
 
 require (
+	github.com/go-chi/chi v1.5.5
 	github.com/go-chi/chi/v5 v5.0.12
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/jackc/pgconn v1.14.3
