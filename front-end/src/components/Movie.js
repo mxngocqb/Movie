@@ -46,7 +46,7 @@ const Movie = () => {
                 </div>
             }
 
-            <p>{movie.decription}</p>
+            <p>{movie.description}</p>
         </div>
     )
 }

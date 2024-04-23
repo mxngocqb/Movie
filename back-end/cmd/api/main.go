@@ -20,6 +20,7 @@ type application struct {
 	JWTIssuer    string
 	JWTAudience  string
 	CookieDomain string
+	APIKey       string
 }
 
 func main() {
@@ -32,6 +33,7 @@ func main() {
 	flag.StringVar(&app.JWTAudience, "jwt-audience", "example.com", "signing audience")
 	flag.StringVar(&app.CookieDomain, "cookie-domain", "192.168.88.130", "cookie domain")
 	flag.StringVar(&app.Domain, "domain", "example.com", "domain")
+	flag.StringVar(&app.APIKey, "api-key", "b41447e6319d1cd467306735632ba733", "api key")
 	flag.Parse()
 	// connect to the database
 	conn, err := app.connectToDB()
@@ -58,7 +60,7 @@ func main() {
 	// start web server
 	// err = http.ListenAndServe(fmt.Sprintf(":%d", port), app.routes())
 	certFile := "./server.crt"
-    keyFile := "./server.key"
+	keyFile := "./server.key"
 	err = http.ListenAndServeTLS(":8080", certFile, keyFile, app.routes())
 	if err != nil {
 		log.Fatal(err)

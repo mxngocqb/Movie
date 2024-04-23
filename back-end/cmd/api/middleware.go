@@ -7,7 +7,7 @@ func (app *application) enableCORS(h http.Handler) http.Handler {
 		// Đặt header cho Access-Control-Allow-Origin, chỉ cho phép truy cập từ origin là "http://localhost:3000"
 		w.Header().Set("Access-Control-Allow-Origin", "https://192.168.88.130:3000")
 
-		if r.Method == "GET" || r.Method == "POST" {
+		if r.Method == "GET" || r.Method == "POST" || r.Method == "PUT" || r.Method == "PATCH"{
 			w.Header().Set("Access-Control-Allow-Credentials", "true")
 			w.Header().Set("Access-Control-Allow-Headers", "Access-Control-Allow-Headers,Accept,Content-Type,X-CSRF-Token,Authorization,Set-Cookie")
 		}
