@@ -31,7 +31,7 @@ const Login = () => {
             body: JSON.stringify(payload),
         }
 
-        fetch(`https://192.168.88.130:8080/authenticate`, requestOptions)
+        fetch(`https://localhost:8080/authenticate`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {

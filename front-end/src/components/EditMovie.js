@@ -196,7 +196,7 @@ const EditMovie = () => {
 
         console.log(JSON.stringify(requestBody));
 
-        fetch(`https://192.168.88.130:8080/admin/movies/${movie.id}`, requestOptions)
+        fetch(`https:/localhost:8080/admin/movies/${movie.id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 if (data.error) {
@@ -260,7 +260,7 @@ const EditMovie = () => {
                     headers: headers,
                 }
     
-              fetch(`https://192.168.88.130:8080/admin/movies/${movie.id}`, requestOptions)
+              fetch(`https:/localhost:8080/admin/movies/${movie.id}`, requestOptions)
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.error) {

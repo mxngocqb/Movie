@@ -5,7 +5,7 @@ import "net/http"
 func (app *application) enableCORS(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Đặt header cho Access-Control-Allow-Origin, chỉ cho phép truy cập từ origin là "http://localhost:3000"
-		w.Header().Set("Access-Control-Allow-Origin", "https://192.168.88.130:3000")
+		w.Header().Set("Access-Control-Allow-Origin", "https://localhost:3001")
 
 		if r.Method == "GET" || r.Method == "POST" || r.Method == "PUT" || r.Method == "PATCH"{
 			w.Header().Set("Access-Control-Allow-Credentials", "true")

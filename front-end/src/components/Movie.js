@@ -14,7 +14,7 @@ const Movie = () => {
             headers: headers,
         }
 
-        fetch(`https://192.168.88.130:8080/movies/${id}`, requestOptions)
+        fetch(`https://localhost:8080/movies/${id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 setMovie(data);

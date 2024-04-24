@@ -19,7 +19,7 @@ const ManageCatalogue = () => {
             headers: headers,
         }
 
-        fetch(`https://192.168.88.130:8080/admin/movies`, requestOptins)
+        fetch(`https://localhost:8080/admin/movies`, requestOptins)
             .then((respone) => respone.json())
             .then((data) => {
                 setMovies(data)
